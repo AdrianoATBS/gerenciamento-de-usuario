@@ -1,0 +1,6 @@
+@GerencimanetoDeUsuario.Domain_HostAddress = http://localhost:5190
+
+GET {{GerencimanetoDeUsuario.Domain_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
