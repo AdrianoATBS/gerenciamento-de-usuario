@@ -1,4 +1,4 @@
-namespace GerencimanetoDeUsuario.Domain
+namespace GerenciamentoDeUsuario.API
 {
     public class WeatherForecast
     {
