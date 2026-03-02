@@ -66,10 +66,10 @@ public class User
     public void AlterarSenha(Senha novaSenha)
     {
          if(IsAtivo == false)
-            throw new ArgumentException("Usuário desativado não pode alterar senha.", nameof(novaSenhaHash));
+            throw new ArgumentException("Usuário desativado não pode alterar senha.", nameof(novaSenha));
 
         if (SenhaHash.Equals(novaSenha))
-            throw new ArgumentException("A nova senha deve ser diferente da senha atual.", nameof(novaSenhaHash));
+            throw new ArgumentException("A nova senha deve ser diferente da senha atual.", nameof(novaSenha));
 
         SenhaHash = novaSenha;
     }

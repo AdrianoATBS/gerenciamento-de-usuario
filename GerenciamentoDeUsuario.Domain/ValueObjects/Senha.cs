@@ -13,17 +13,30 @@ public class Senha
     {
         if (string.IsNullOrWhiteSpace(hash))
             throw new ArgumentException("Hash da senha é obrigatório.", nameof(hash));
-        if(hash.Length < 20) 
+        if(hash.Length < 5) 
             throw new ArgumentException("Hash da senha é inválido.", nameof(hash));
        
-        
-        
-        Hash = hash;
+       Hash = hash;
 
+    }
+
+    public override bool Equals(object obj)
+    {
+        if (obj is Senha outraSenha)
+        {
+            return this.Hash == outraSenha.Hash; 
+        }
+        return false;
+    }
+
+    public override int GetHashCode()
+    {
+        return Hash.GetHashCode();
     }
 
     public static implicit operator Senha(string v)
     {
-        throw new NotImplementedException();
+        return new Senha(v);
     }
+
 }

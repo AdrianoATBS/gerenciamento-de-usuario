@@ -9,9 +9,9 @@ public class Email
     public Email(string endereco)
     {
         if (string.IsNullOrWhiteSpace(endereco))
-            throw new ArgumentException("Email é obrigatório.", nameof(endereco));
+            throw new ArgumentException("Email é obrigatório.");
         if (!IsValidEmail(endereco))
-            throw new ArgumentException("Email inválido.", nameof(endereco));
+            throw new ArgumentException("Email inválido.");
         Endereco = endereco;
     }
     private bool IsValidEmail(string email)
