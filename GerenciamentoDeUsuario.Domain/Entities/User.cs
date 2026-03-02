@@ -30,12 +30,21 @@ public class User
         Perfil = perfil;
         CriadoEm = DateTime.UtcNow;
         IsAtivo = true;
+
+        var refreshToken = new RefreshToken(Guid.NewGuid()
+            .ToString(), DateTime.UtcNow.AddDays(7), Id);
+        AdicionarToken(refreshToken);
     }
 
     public void Desativar()
     {
         if(!IsAtivo)
             throw new InvalidOperationException("Usuário já está desativado.");
+            
+        foreach(var token in _tokens)
+        {
+            token.Revogar();
+        }
 
         IsAtivo = false;
     }
@@ -69,12 +78,14 @@ public class User
     {
         _tokens.Add(token);
     }
+
     public void RevogarToken(string token)
     {
-        var tokenEncontrado = _tokens.FirstOrDefault(t => t.Token == token);
-        if (tokenEncontrado == null)
+        var refreshToken = _tokens.FirstOrDefault(t => t.Token == token);
+        if (refreshToken == null)
             throw new ArgumentException("Token não encontrado.", nameof(token));
         
-        tokenEncontrado.Revogar();
+        refreshToken.Revogar();
     }
+
 }
