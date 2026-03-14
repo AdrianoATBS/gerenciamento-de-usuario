@@ -13,7 +13,7 @@ public class RefreshToken
     public DateTime Expiration { get; private set; }
     public bool Revogado { get; private set; }
 
-    public RefreshToken(string token, DateTime expiration, Guid userId)
+    public RefreshToken(string token, DateTime expiration)
     {
         if (string.IsNullOrWhiteSpace(token))
             throw new ArgumentException("Token é obrigatório.", nameof(token));
