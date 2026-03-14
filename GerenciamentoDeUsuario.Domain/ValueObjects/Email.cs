@@ -3,7 +3,7 @@ using System.Net.Mail;
 
 namespace GerenciamentoDeUsuario.Domain.ValueObjects;
 
-public class Email
+public record Email
 {
     public string Endereco { get; private set; }
     public Email(string endereco)

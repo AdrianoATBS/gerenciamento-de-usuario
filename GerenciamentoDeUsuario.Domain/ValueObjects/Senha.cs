@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GerenciamentoDeUsuario.Domain.ValueObjects;
 
-public class Senha
+public record Senha
 {
     public string Hash { get; private set; }
     public Senha(string hash)
