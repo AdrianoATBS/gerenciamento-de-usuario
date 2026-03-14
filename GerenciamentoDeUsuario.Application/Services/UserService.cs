@@ -11,12 +11,15 @@ public class UserService : IUserService
 {
     private readonly IUserRepository _repository;
 
+    public UserService(IUserRepository repository)
+    {
+        _repository = repository;
+    }
+    
+
     public async Task ChangePasswordAsync(ChangePasswordDto dto)
     {
-        var user = await _repository.GetByIdAsync(dto.UserId);
-
-        if (user == null)
-            throw new Exception("Usuário não encontrado");
+        var user = await GetUserOrThrow(dto.UserId);
 
         user.AlterarSenha(new Senha(dto.NovaSenha));
         await _repository.UpdateAsync(user);
@@ -24,20 +27,15 @@ public class UserService : IUserService
 
     public async Task DeactivateAsync(Guid userId)
     {
-        var user = await _repository.GetByIdAsync(userId);
+        var user = await GetUserOrThrow(userId);
 
-        if(user == null)
-            throw new Exception("Usuário não encontrado");
         user.Desativar();
         await _repository.UpdateAsync(user);
     }
 
     public async Task<UserResponseDto> GetByIdAsync(Guid id)
     {
-        var user = await _repository.GetByIdAsync(id);
-
-        if (user == null)
-            throw new Exception("Usuário não encontrado");
+        var user = await GetUserOrThrow(id);
 
         return new UserResponseDto
         {
@@ -61,11 +59,9 @@ public class UserService : IUserService
 
     public async Task UpdateUserAsync(UpdateUserDto dto)
     {
-        var user = await _repository.GetByIdAsync(dto.Id);
+        var user = await GetUserOrThrow(dto.Id);
 
-        if (user == null)
-            throw new Exception("Usuario não encontrado");
-
+     
         user.AlterarUsuario(
             dto.Nome,
             dto.Email,
@@ -73,5 +69,14 @@ public class UserService : IUserService
         );
         await _repository.UpdateAsync(user);
 
+    }
+
+    private async Task<User> GetUserOrThrow(Guid id)
+    {
+        var user = await _repository.GetByIdAsync(id);
+        if(user == null)
+            throw new Exception("Usuário não encontrado");
+
+        return user;
     }
 }
