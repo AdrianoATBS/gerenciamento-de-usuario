@@ -25,4 +25,8 @@
     <ProjectReference Include="..\GerenciamentoDeUsuario.Domain\GerenciamentoDeUsuario.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Persistencie\Mappings\" />
+  </ItemGroup>
+
 </Project>
