@@ -1,4 +1,5 @@
-﻿using GerenciamentoDeUsuario.Domain.Entities;
+﻿using GerenciamentoDeUsuario.Application.Interfaces;
+using GerenciamentoDeUsuario.Domain.Entities;
 using GerenciamentoDeUsuario.Domain.Interfaces;
 using GerenciamentoDeUsuario.Infrastructure.Persistencie;
 using Microsoft.EntityFrameworkCore;
@@ -8,20 +9,23 @@ namespace GerenciamentoDeUsuario.Infrastructure.Repositories;
 public class UserRepository : IUserRepository
 {
     private readonly AppDbContext _context;
+    private readonly IUserRepository _userRepository;
+    private readonly IUnitOfWork _unitOfWork;
     public UserRepository(AppDbContext context)
     {
         _context = context;
+      
     }
     public async Task AddAsync(User user)
     {
         await _context.Users.AddAsync(user);
-        await _context.SaveChangesAsync();
+       
     }
 
     public async Task DeleteAsync(User user)
     {
         _context.Users.Remove(user);
-        await _context.SaveChangesAsync();
+      
     }
 
     public async Task<User?> GetByEmailAsync(string email)
@@ -41,6 +45,6 @@ public class UserRepository : IUserRepository
     public async Task UpdateAsync(User user)
     {
         _context.Users.Update(user);
-        await _context.SaveChangesAsync();
+        
     }
 }
