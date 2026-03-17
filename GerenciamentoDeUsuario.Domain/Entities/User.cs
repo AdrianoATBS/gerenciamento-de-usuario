@@ -32,7 +32,9 @@ public class User
         IsAtivo = true;
 
         var refreshToken = new RefreshToken(Guid.NewGuid()
-            .ToString(), DateTime.UtcNow.AddDays(7), Id);
+            .ToString(), DateTime.UtcNow.AddDays(7),
+            Id);
+
         AdicionarToken(refreshToken);
     }
 
