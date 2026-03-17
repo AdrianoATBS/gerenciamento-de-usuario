@@ -41,7 +41,7 @@ public class UserMapping : IEntityTypeConfiguration<User>
 
         builder.HasMany(u => u.Tokens)
             .WithOne()
-            .HasForeignKey(rt => rt.UserId)
+            .HasForeignKey(rt => rt.UserId )
             .OnDelete(DeleteBehavior.Cascade);
 
         builder.Navigation(u => u.Tokens)
