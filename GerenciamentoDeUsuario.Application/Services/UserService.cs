@@ -10,10 +10,13 @@ namespace GerenciamentoDeUsuario.Application.Services;
 public class UserService : IUserService
 {
     private readonly IUserRepository _repository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public UserService(IUserRepository repository)
+    public UserService(IUserRepository repository
+        ,IUnitOfWork unitOfWork)
     {
         _repository = repository;
+        _unitOfWork = unitOfWork;
     }
     
 
@@ -22,7 +25,9 @@ public class UserService : IUserService
         var user = await GetUserOrThrow(dto.UserId);
 
         user.AlterarSenha(new Senha(dto.NovaSenha));
+
         await _repository.UpdateAsync(user);
+        await _unitOfWork.SaveChangeAsync();
     }
 
     public async Task DeactivateAsync(Guid userId)
@@ -30,7 +35,9 @@ public class UserService : IUserService
         var user = await GetUserOrThrow(userId);
 
         user.Desativar();
+
         await _repository.UpdateAsync(user);
+        await _unitOfWork.SaveChangeAsync();
     }
 
     public async Task<UserResponseDto> GetByIdAsync(Guid id)
@@ -55,6 +62,7 @@ public class UserService : IUserService
             );
 
         await _repository.AddAsync(user);
+        await _unitOfWork.SaveChangeAsync();
     }
 
     public async Task UpdateUserAsync(UpdateUserDto dto)
@@ -68,6 +76,7 @@ public class UserService : IUserService
             UserPerfil.Usuario
         );
         await _repository.UpdateAsync(user);
+        await _unitOfWork.SaveChangeAsync();
 
     }
 
