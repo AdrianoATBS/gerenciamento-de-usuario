@@ -14,7 +14,6 @@ public class RefreshToken
     public bool Revogado { get; private set; }
     public Guid UserId { get; private set; }
     private RefreshToken() { }
-
     public RefreshToken(string token, DateTime expiration, Guid userId)
     {
         if (string.IsNullOrWhiteSpace(token))
