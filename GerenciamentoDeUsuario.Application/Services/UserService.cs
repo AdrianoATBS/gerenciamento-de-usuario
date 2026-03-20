@@ -27,7 +27,7 @@ public class UserService : IUserService
         user.AlterarSenha(new Senha(dto.NovaSenha));
 
         await _repository.UpdateAsync(user);
-        await _unitOfWork.SaveChangeAsync();
+        await _unitOfWork.SaveChangesAsync();
     }
 
     public async Task DeactivateAsync(Guid userId)
@@ -37,7 +37,7 @@ public class UserService : IUserService
         user.Desativar();
 
         await _repository.UpdateAsync(user);
-        await _unitOfWork.SaveChangeAsync();
+        await _unitOfWork.SaveChangesAsync();
     }
 
     public async Task<UserResponseDto> GetByIdAsync(Guid id)
@@ -62,7 +62,7 @@ public class UserService : IUserService
             );
 
         await _repository.AddAsync(user);
-        await _unitOfWork.SaveChangeAsync();
+        await _unitOfWork.SaveChangesAsync();
     }
 
     public async Task UpdateUserAsync(UpdateUserDto dto)
@@ -76,7 +76,7 @@ public class UserService : IUserService
             UserPerfil.Usuario
         );
         await _repository.UpdateAsync(user);
-        await _unitOfWork.SaveChangeAsync();
+        await _unitOfWork.SaveChangesAsync();
 
     }
 
