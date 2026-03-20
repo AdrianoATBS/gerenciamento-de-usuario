@@ -6,6 +6,7 @@ namespace GerenciamentoDeUsuario.Domain.ValueObjects;
 public record Email
 {
     public string Endereco { get; private set; }
+    private Email() { }
     public Email(string endereco)
     {
         if (string.IsNullOrWhiteSpace(endereco))

@@ -9,6 +9,7 @@ namespace GerenciamentoDeUsuario.Domain.ValueObjects;
 public record Senha
 {
     public string Hash { get; private set; }
+    private Senha() { }
     public Senha(string hash)
     {
         if (string.IsNullOrWhiteSpace(hash))

@@ -54,7 +54,7 @@ public class UserService : IUserService
 
     public async Task RegisterAsync(RegisterUserDto dto)
     {
-        var user = new User(
+        var user = User.Criar(
             dto.Nome,
             dto.Email,
             dto.Senha,
