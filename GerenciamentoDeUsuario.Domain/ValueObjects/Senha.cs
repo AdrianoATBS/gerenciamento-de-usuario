@@ -20,20 +20,6 @@ public record Senha
 
     }
 
-    public override bool Equals(object obj)
-    {
-        if (obj is Senha outraSenha)
-        {
-            return this.Hash == outraSenha.Hash; 
-        }
-        return false;
-    }
-
-    public override int GetHashCode()
-    {
-        return Hash.GetHashCode();
-    }
-
     public static implicit operator Senha(string v)
     {
         return new Senha(v);
