@@ -16,13 +16,13 @@ namespace GerenciamentoDeUsuario.API.Controllers
             _service = service;
         }
 
-        [HttpPost("{id}")]
+        [HttpPost]
         public async Task<IActionResult> Register(RegisterUserDto dto)
         {
             await _service.RegisterAsync(dto);
             return Ok("Usuário criado com sucesso");
         }
-        [HttpGet]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetById(Guid id)
         {
             var user = await _service.GetByIdAsync(id);
