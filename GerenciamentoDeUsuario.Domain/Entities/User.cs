@@ -15,8 +15,7 @@ public class User
     public UserPerfil Perfil { get; private set; }
     public DateTime CriadoEm { get; private set; } 
     public bool IsAtivo { get; private set; } 
-
-    private User() { }
+    private User() { } 
     private User(string nome, string email, 
         string senhaHash, UserPerfil perfil)
     {
@@ -38,7 +37,12 @@ public class User
 
         AdicionarToken(refreshToken);
     }
-    public static User Criar(string nome, string email, string senhaHash, UserPerfil perfil)
+    public static User Criar(string nome, string email, string senhaHash)
+    {
+        return new User(nome, email, senhaHash, UserPerfil.Usuario);
+    }
+    public static User Criar(string nome, string email,
+        string senhaHash, UserPerfil perfil)
     {
         return new User(nome, email, senhaHash, perfil);
     }
