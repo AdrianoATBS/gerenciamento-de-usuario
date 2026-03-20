@@ -11,7 +11,7 @@ namespace GerenciamentoDeUsuario.Infrastructure.DependencyInjection;
 public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services
-        IConfiguration configuration)
+        ,IConfiguration configuration)
     {
         var connectionString = configuration.GetConnectionString("DefaultConnection");
 
