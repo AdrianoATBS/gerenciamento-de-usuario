@@ -1,4 +1,5 @@
-﻿using GerenciamentoDeUsuario.Domain.Interfaces;
+﻿using GerenciamentoDeUsuario.Application.Interfaces;
+using GerenciamentoDeUsuario.Domain.Interfaces;
 using GerenciamentoDeUsuario.Infrastructure.Persistencie;
 using GerenciamentoDeUsuario.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +24,8 @@ public static class DependencyInjection
 
         services.AddScoped<IUserRepository,
             UserRepository>();
+        services.AddScoped<IUnitOfWork>(provider =>
+        provider.GetRequiredService<AppDbContext>());
 
         return services;
     }

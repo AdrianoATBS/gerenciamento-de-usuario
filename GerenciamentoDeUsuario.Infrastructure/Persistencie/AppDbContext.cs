@@ -13,7 +13,7 @@ public class AppDbContext : DbContext, IUnitOfWork
     public DbSet<User> Users { get; set; }
     public DbSet<RefreshToken> RefreshTokens { get; set; }
 
-    public async Task<int> SaveChangeAsync(CancellationToken cancellationTolen = default)
+    public async Task<int> SaveChangesAsync(CancellationToken cancellationTolen = default)
     {
         return await base.SaveChangesAsync(cancellationTolen);
     }

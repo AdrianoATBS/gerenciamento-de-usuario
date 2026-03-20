@@ -9,8 +9,7 @@ namespace GerenciamentoDeUsuario.Infrastructure.Repositories;
 public class UserRepository : IUserRepository
 {
     private readonly AppDbContext _context;
-    private readonly IUserRepository _userRepository;
-    private readonly IUnitOfWork _unitOfWork;
+
     public UserRepository(AppDbContext context)
     {
         _context = context;
@@ -31,6 +30,7 @@ public class UserRepository : IUserRepository
     public async Task<User?> GetByEmailAsync(string email)
     {
         return await _context.Users
+            .AsNoTracking()
             .Include(u => u.Tokens)
             .FirstOrDefaultAsync(u => u.Email.Endereco == email);
     }
@@ -38,6 +38,7 @@ public class UserRepository : IUserRepository
     public async Task<User?> GetByIdAsync(Guid id)
     {
        return await _context.Users
+            .AsNoTracking()
             .Include(u => u.Tokens)
             .FirstOrDefaultAsync(u => u.Id == id);
     }
