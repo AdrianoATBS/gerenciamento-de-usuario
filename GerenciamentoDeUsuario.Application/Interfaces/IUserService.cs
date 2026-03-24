@@ -9,4 +9,5 @@ public interface IUserService
     Task ChangePasswordAsync(ChangePasswordDto dto);
     Task DeactivateAsync(Guid userId);
     Task<UserResponseDto> GetByIdAsync(Guid id);
+    Task<string> LoginAsync(LoginDto dto);
 }
