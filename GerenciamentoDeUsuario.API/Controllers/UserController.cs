@@ -1,10 +1,12 @@
 ﻿using GerenciamentoDeUsuario.Application.DTOs;
 using GerenciamentoDeUsuario.Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GerenciamentoDeUsuario.API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
@@ -15,13 +17,14 @@ namespace GerenciamentoDeUsuario.API.Controllers
         {
             _service = service;
         }
-
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Register(RegisterUserDto dto)
         {
             await _service.RegisterAsync(dto);
             return Ok("Usuário criado com sucesso");
         }
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(Guid id)
         {
@@ -49,5 +52,13 @@ namespace GerenciamentoDeUsuario.API.Controllers
             return NoContent();
 
         }
+        [AllowAnonymous]
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(LoginDto dto)
+        {
+            var token = await _service.LoginAsync(dto);
+            return Ok(new { Token = token });
+        }
+       
     }
 }
