@@ -11,12 +11,15 @@ public class UserService : IUserService
 {
     private readonly IUserRepository _repository;
     private readonly IUnitOfWork _unitOfWork;
+    private readonly ITokenService _tokenService;
 
     public UserService(IUserRepository repository
-        ,IUnitOfWork unitOfWork)
+        ,IUnitOfWork unitOfWork,
+        ITokenService tokenService)
     {
         _repository = repository;
         _unitOfWork = unitOfWork;
+        _tokenService = tokenService;
     }
     
 
@@ -87,5 +90,17 @@ public class UserService : IUserService
             throw new Exception("Usuário não encontrado");
 
         return user;
+    }
+
+    public async Task<string> LoginAsync(LoginDto dto)
+    {
+        var user = await _repository.GetByEmailAsync(dto.Email);
+
+        if (user == null)
+            throw new Exception("Usuário não encontrado");
+        if(user.SenhaHash.Hash != dto.Senha)
+            throw new Exception("Senha incorreta");
+
+        return _tokenService.GerarToken(user);
     }
 }
